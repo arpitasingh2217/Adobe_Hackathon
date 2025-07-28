@@ -58,12 +58,19 @@ docker run --rm \
 #### OUTPUT
 {
   "title": "Document Title",
+  
   "outline": [
+  
     { "level": "H1", "text": "Main Heading", "page": 1 },
+    
     { "level": "H2", "text": "Subheading", "page": 2 },
+    
     { "level": "H3", "text": "Nested Item", "page": 3 }
+    
   ]
+  
 }
+
 
 ### TECHNICAL SPECIFICATIONS
 Platform: AMD64 (x86_64) compatible
