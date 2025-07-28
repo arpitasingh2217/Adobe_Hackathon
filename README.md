@@ -1,4 +1,4 @@
-# Adobe_Hackathon
+# Adobe_Hackathon1a
 # PDF Outline Extractor
 
 #### A Dockerized solution that extracts hierarchical document outlines (title and headings) from PDF files and outputs structured JSON.
