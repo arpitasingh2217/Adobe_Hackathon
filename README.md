@@ -25,37 +25,41 @@ The extractor is designed to work with standard PDF documents up to 50 pages, wi
 ## How to Build and RuN
 FROM --platform=linux/amd64 python:3.9-slim
 
-##### Set working directory
+##### 1.Set working directory
 WORKDIR /app
 
-##### Install system dependencies first (cached layer)
+##### 2.Install system dependencies first (cached layer)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     libgl1-mesa-glx \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-#### Install dependencies
+#### 3.Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-#### Copy source code
+#### 4.Copy source code
 COPY extractor.py .
 
-#### Create directories
+#### 5.Create directories
 RUN mkdir -p /app/input /app/output
 
-#### Set the entry point
+#### 6.Set the entry point
 CMD ["python", "extractor.py"]
 
-#### INPUT
+#### Run Docker Image
+``bash
+docker build --platform linux/amd64 -t pdf-extractor:v1 .
+
+#### 7.INPUT
 docker run --rm \
   -v $(pwd)/input:/app/input \
   -v $(pwd)/output:/app/output \
   --network none \
   pdf-outline-extractor:latest
 
-#### OUTPUT
+#### 8.OUTPUT
 {
   "title": "Document Title",
   
@@ -73,8 +77,13 @@ docker run --rm \
 
 
 ### TECHNICAL SPECIFICATIONS
+
 Platform: AMD64 (x86_64) compatible
+
 Architecture: CPU-only (no GPU requirements)
+
 Network: Works completely offline
+
 Model Size: < 200MB
+
 Maximum PDF size: 50 pages
