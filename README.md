@@ -22,41 +22,40 @@ The extractor is designed to work with standard PDF documents up to 50 pages, wi
 - AMD64 (x86_64) architecture
 - 200MB available disk space
 
-## How to Build and Run
-# Use official Python slim image for AMD64
+## How to Build and RuN
 FROM --platform=linux/amd64 python:3.9-slim
 
-# Set working directory
+##### Set working directory
 WORKDIR /app
 
-# Install system dependencies first (cached layer)
+##### Install system dependencies first (cached layer)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     libgl1-mesa-glx \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# Install dependencies
+#### Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy source code
+#### Copy source code
 COPY extractor.py .
 
-# Create directories
+#### Create directories
 RUN mkdir -p /app/input /app/output
 
-# Set the entry point
+#### Set the entry point
 CMD ["python", "extractor.py"]
 
-### INPUT
+#### INPUT
 docker run --rm \
   -v $(pwd)/input:/app/input \
   -v $(pwd)/output:/app/output \
   --network none \
   pdf-outline-extractor:latest
 
-### OUTPUT
+#### OUTPUT
 {
   "title": "Document Title",
   "outline": [
